@@ -720,6 +720,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
       <div class="lf-grid">
         <input type="text" id="lfName" required maxlength="80">
         <input type="text" id="lfContact" required maxlength="120">
+        <input type="tel" id="lfPhone" maxlength="30">
         <select id="lfType"></select>
         <textarea id="lfMsg" rows="4" maxlength="2000"></textarea>
       </div>
@@ -774,7 +775,7 @@ az:{
     ["Qeyri-standart məhsul hazırlaya bilirsinizmi?","Bəli. Müştərinin tələb etdiyi istənilən məhsulu hazırlayırıq — Telegram botdan kripto birjaya qədər. İdeyanı təsvir etmək mümkündürsə, onu qurmaq da mümkündür."]
   ],
   form_title:"Müraciət göndərin",form_sub:"Layihənizi təsvir edin — tezliklə cavab verəcəyik.",
-  f_name:"Adınız",f_contact:"Telegram və ya email",f_msg:"İdeyanızı təsvir edin…",
+  f_name:"Adınız",f_contact:"Telegram və ya email",f_phone:"Əlaqə nömrəsi (+994...)",f_msg:"İdeyanızı təsvir edin…",
   f_send:"Müraciəti göndər",f_ok:"Müraciət göndərildi! Sizinlə əlaqə saxlayacağıq.",f_err:"Göndərmək alınmadı — bizə Telegram-da yazın.",
   f_types:["Veb sayt / Platforma","SaaS","E-commerce","Fintech / Trading","AI / Avtomatlaşdırma","Blockchain / Web3","Telegram bot","Digər"],
   services:[
@@ -870,7 +871,7 @@ ru:{
     ["Можете разработать нестандартный продукт?","Да. Мы разрабатываем любой продукт под задачу клиента — от Telegram-бота до криптобиржи. Если идею можно описать — её можно построить."]
   ],
   form_title:"Оставьте заявку",form_sub:"Опишите проект — ответим в ближайшее время.",
-  f_name:"Ваше имя",f_contact:"Telegram или email",f_msg:"Опишите вашу идею…",
+  f_name:"Ваше имя",f_contact:"Telegram или email",f_phone:"Номер для связи (+994...)",f_msg:"Опишите вашу идею…",
   f_send:"Отправить заявку",f_ok:"Заявка отправлена! Мы свяжемся с вами.",f_err:"Не удалось отправить — напишите нам в Telegram.",
   f_types:["Веб-сайт / Платформа","SaaS","E-commerce","Fintech / Trading","AI / Автоматизация","Blockchain / Web3","Telegram-бот","Другое"],
   services:[
@@ -966,7 +967,7 @@ en:{
     ["Can you build a non-standard product?","Yes. We build any product a client needs — from a Telegram bot to a crypto exchange. If an idea can be described, it can be built."]
   ],
   form_title:"Send a request",form_sub:"Describe your project — we'll get back to you shortly.",
-  f_name:"Your name",f_contact:"Telegram or email",f_msg:"Describe your idea…",
+  f_name:"Your name",f_contact:"Telegram or email",f_phone:"Phone number (+994...)",f_msg:"Describe your idea…",
   f_send:"Send request",f_ok:"Request sent! We'll get in touch.",f_err:"Couldn't send — message us on Telegram.",
   f_types:["Website / Platform","SaaS","E-commerce","Fintech / Trading","AI / Automation","Blockchain / Web3","Telegram bot","Other"],
   services:[
@@ -1109,6 +1110,7 @@ function render(){
   /* form i18n */
   document.getElementById("lfName").placeholder = t.f_name;
   document.getElementById("lfContact").placeholder = t.f_contact;
+  document.getElementById("lfPhone").placeholder = t.f_phone;
   document.getElementById("lfMsg").placeholder = t.f_msg;
   document.getElementById("lfType").innerHTML = t.f_types.map(o=>`<option>${o}</option>`).join("");
   /* animated counters */
@@ -1273,6 +1275,7 @@ leadForm.addEventListener("submit", async e=>{
   const payload = "\uD83D\uDFE1 Golden Age \u2014 new request\n"
     + "Name: " + document.getElementById("lfName").value.trim() + "\n"
     + "Contact: " + document.getElementById("lfContact").value.trim() + "\n"
+    + "Phone: " + (document.getElementById("lfPhone").value.trim() || "\u2014") + "\n"
     + "Type: " + document.getElementById("lfType").value + "\n"
     + "Message: " + document.getElementById("lfMsg").value.trim();
   if(TG_BOT_TOKEN && TG_CHAT_IDS.length){
