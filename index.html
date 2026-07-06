@@ -10,7 +10,11 @@
 <meta property="og:title" content="Golden Age — Digital Systems & Architecture">
 <meta property="og:description" content="Fintech · Investments · AI · Blockchain · Education · Analytics. Full-cycle digital products: from idea to launch and scaling.">
 <meta property="og:site_name" content="Golden Age">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://devprojects-nine.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://devprojects-nine.vercel.app/og.png">
 <meta name="twitter:title" content="Golden Age — Digital Systems & Architecture">
 <meta name="twitter:description" content="Fintech · Investments · AI · Blockchain · Education · Analytics. Full-cycle digital products.">
 <meta name="theme-color" content="#080C16">
@@ -310,6 +314,34 @@ html[data-theme="light"] .theme-btn .moon{display:none}
 .diagram g.node:hover circle{stroke-opacity:1;filter:drop-shadow(0 0 7px rgba(217,172,78,.75))}
 .diagram g.node:hover .node-label{fill:var(--gold-hi)}
 @media (max-width:640px){.lf-grid{grid-template-columns:1fr}.lead-form{padding:28px 22px}}
+
+/* aurora glow in hero */
+.hero{overflow:visible}
+.hero::after{
+  content:"";position:absolute;inset:-15% -8%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(620px 420px at 72% 28%,rgba(217,172,78,.13),transparent 70%),
+    radial-gradient(520px 400px at 18% 72%,rgba(72,112,224,.10),transparent 70%);
+  filter:blur(24px);
+  animation:aurora 16s ease-in-out infinite alternate;
+}
+@keyframes aurora{to{transform:translate3d(3%,-3%,0) scale(1.07)}}
+/* roadmap */
+.roadmap{position:relative;max-width:760px}
+.roadmap::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(180deg,var(--gold) 60%,transparent)}
+.rm-item{position:relative;padding:0 0 28px 58px}
+.rm-item:last-child{padding-bottom:0}
+.rm-dot{position:absolute;left:11px;top:4px;width:17px;height:17px;border-radius:50%;
+  border:2px solid var(--gold);background:var(--ink)}
+.rm-item.done .rm-dot{background:var(--gold);box-shadow:0 0 10px rgba(217,172,78,.55)}
+.rm-item.prog .rm-dot{animation:rmpulse 2.2s ease-out infinite}
+@keyframes rmpulse{0%{box-shadow:0 0 0 0 rgba(217,172,78,.45)}70%{box-shadow:0 0 0 9px rgba(217,172,78,0)}100%{box-shadow:0 0 0 0 rgba(217,172,78,0)}}
+.rm-item.plan .rm-dot{border-color:var(--muted);opacity:.65}
+.rm-status{font:600 .6rem 'Unbounded';letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.rm-item.plan .rm-status{color:var(--muted)}
+.rm-item h3{font-size:.95rem;margin:7px 0 4px;font-weight:500}
+.rm-item p{font-size:.85rem;color:var(--muted)}
 
 /* ---------- sections ---------- */
 section{padding:78px 0}
@@ -632,6 +664,18 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
   </div>
 </section>
 
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="rm_eyebrow"></span>
+      <h2 data-i18n="rm_title"></h2>
+      <p data-i18n="rm_sub"></p>
+    </div>
+    <div class="roadmap" id="rmList"></div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="wrap">
@@ -672,6 +716,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
     <form class="lead-form rv" id="leadForm">
       <h3 data-i18n="form_title"></h3>
       <p class="lf-sub" data-i18n="form_sub"></p>
+      <input type="text" id="lfHp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;opacity:0" aria-hidden="true">
       <div class="lf-grid">
         <input type="text" id="lfName" required maxlength="80">
         <input type="text" id="lfContact" required maxlength="120">
@@ -774,6 +819,18 @@ az:{
     ["Böyümə strategiyası","Rəqəmsal məhsulun inkişafı və miqyaslandırılması üzrə strategiya."],
     ["İnvestisiya araşdırması","Layihə və bazar analitikası, məlumatlı qərarlar üçün."]
   ],
+  rm_eyebrow:"Yol xəritəsi",rm_title:"Golden Age ekosisteminin inkişafı",
+  rm_sub:"Platforma mərhələ-mərhələ böyüyür — nə hazırdır, nə üzərində işləyirik və nə planlaşdırılır.",
+  rm_status:{done:"Hazırdır",prog:"İnkişafda",plan:"Planlaşdırılır"},
+  rm_items:[
+    ["done","Golden Age veb platforması","Üçdilli ekosistem saytı istifadəyə verilib."],
+    ["done","Konsultasiya və audit xidmətləri","Ödənişli konsultasiya və audit aktivdir."],
+    ["prog","Müraciətlərin qəbulu və CRM prosesi","Telegram inteqrasiyası ilə lead axını qurulur."],
+    ["prog","Portfolio və keyslər","İlk layihələrin təqdimatı hazırlanır."],
+    ["plan","İnvestisiya-analitika modulu","Bazar analitikası və investisiya alətləri."],
+    ["plan","Təhsil platforması","Maliyyə və texnologiya üzrə təlim modulu."],
+    ["plan","AI və blockchain məhsulları","Ekosistemin öz rəqəmsal məhsulları."]
+  ],
   fmt_eyebrow:"Əməkdaşlıq",fmt_title:"İş formatları",
   formats:["Tam layihə hazırlanması","Freelance işlər","Startapların inkişafı","Biznes avtomatlaşdırma","Şirkətlərlə tərəfdaşlıq","Uzunmüddətli məhsul inkişafı"],
   cta_eyebrow:"Əlaqə",cta_title:"İdeyanız var? Onu işlək məhsula çevirək.",
@@ -857,6 +914,18 @@ ru:{
     ["Автоматизация бизнеса","Превращаем повторяющиеся процессы в системы."],
     ["Стратегия роста","Стратегия развития и масштабирования цифрового продукта."],
     ["Инвестиционные исследования","Аналитика проектов и рынков для взвешенных решений."]
+  ],
+  rm_eyebrow:"Дорожная карта",rm_title:"Развитие экосистемы Golden Age",
+  rm_sub:"Платформа растёт поэтапно — что уже запущено, над чем работаем и что в планах.",
+  rm_status:{done:"Запущено",prog:"В разработке",plan:"В планах"},
+  rm_items:[
+    ["done","Веб-платформа Golden Age","Трёхязычный сайт экосистемы запущен."],
+    ["done","Консультации и аудит","Платные консультации и аудит доступны."],
+    ["prog","Приём заявок и CRM-процесс","Поток лидов через Telegram-интеграцию."],
+    ["prog","Портфолио и кейсы","Готовится презентация первых проектов."],
+    ["plan","Инвестиционно-аналитический модуль","Рыночная аналитика и инвестиционные инструменты."],
+    ["plan","Образовательная платформа","Обучающий модуль по финансам и технологиям."],
+    ["plan","AI и блокчейн-продукты","Собственные цифровые продукты экосистемы."]
   ],
   fmt_eyebrow:"Сотрудничество",fmt_title:"Форматы работы",
   formats:["Полная разработка проекта","Freelance-задачи","Развитие стартапов","Автоматизация бизнеса","Партнёрство с компаниями","Долгосрочное развитие продукта"],
@@ -942,6 +1011,18 @@ en:{
     ["Growth strategy","Strategy for developing and scaling a digital product."],
     ["Investment research","Project and market analytics for informed decisions."]
   ],
+  rm_eyebrow:"Roadmap",rm_title:"The Golden Age ecosystem, step by step",
+  rm_sub:"The platform grows in stages — what's live, what we're building, and what's planned.",
+  rm_status:{done:"Live",prog:"In progress",plan:"Planned"},
+  rm_items:[
+    ["done","Golden Age web platform","The trilingual ecosystem site is live."],
+    ["done","Consultation & audit services","Paid consultations and audits are available."],
+    ["prog","Lead intake & CRM process","Lead flow through Telegram integration."],
+    ["prog","Portfolio & case studies","Presenting the first projects."],
+    ["plan","Investment & analytics module","Market analytics and investment tools."],
+    ["plan","Education platform","A learning module for finance and technology."],
+    ["plan","AI & blockchain products","The ecosystem's own digital products."]
+  ],
   fmt_eyebrow:"Collaboration",fmt_title:"Ways of working",
   formats:["Full project delivery","Freelance work","Startup development","Business automation","Company partnerships","Long-term product development"],
   cta_eyebrow:"Contact",cta_title:"Have an idea? Let's turn it into a working product.",
@@ -1019,6 +1100,9 @@ function render(){
     <div class="card rv in"><div class="ic">${BIZ_ICONS[i]}</div><div><h3>${b[0]}</h3><p>${b[1]}</p></div></div>`).join("");
   /* formats */
   document.getElementById("formats").innerHTML = t.formats.map(f=>`<span class="fmt">${f}</span>`).join("");
+  /* roadmap */
+  document.getElementById("rmList").innerHTML = t.rm_items.map(r=>`
+    <div class="rm-item ${r[0]} rv in"><span class="rm-dot"></span><span class="rm-status">${t.rm_status[r[0]]}</span><h3>${r[1]}</h3><p>${r[2]}</p></div>`).join("");
   /* faq */
   document.getElementById("faqList").innerHTML = t.faq_items.map(f=>`
     <details class="faq-item rv in"><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("");
@@ -1046,12 +1130,16 @@ function animateNumber(el){
   })(t0);
 }
 
+function applyLang(l){
+  if(!T[l]) l = "az";
+  LANG = l;
+  document.querySelectorAll(".lang button").forEach(x=>x.classList.toggle("on", x.dataset.lang===l));
+  render();
+}
 document.querySelectorAll(".lang button").forEach(b=>{
   b.addEventListener("click",()=>{
-    document.querySelectorAll(".lang button").forEach(x=>x.classList.remove("on"));
-    b.classList.add("on");
-    LANG = b.dataset.lang;
-    render();
+    applyLang(b.dataset.lang);
+    try{ localStorage.setItem("ga-lang", b.dataset.lang); }catch(e){}
   });
 });
 
@@ -1175,24 +1263,27 @@ document.addEventListener("pointermove",e=>{
 });
 
 /* lead form: Telegram bot (fill in token & chat id) with email fallback */
-const TG_BOT_TOKEN = "";   // токен бота от @BotFather
-const TG_CHAT_ID   = "";   // ваш chat id
+const TG_BOT_TOKEN = "8842562670:AAH2YjCzCmhk031H_4w5kOmN1Y2g8Vg9SUU";
+const TG_CHAT_IDS  = ["226694222","-1003871339892"]; // личка + группа
 const leadForm = document.getElementById("leadForm");
 leadForm.addEventListener("submit", async e=>{
   e.preventDefault();
   const t = T[LANG], st = document.getElementById("lfStatus");
+  if(document.getElementById("lfHp").value){ st.textContent = t.f_ok; leadForm.reset(); return; }
   const payload = "\uD83D\uDFE1 Golden Age \u2014 new request\n"
     + "Name: " + document.getElementById("lfName").value.trim() + "\n"
     + "Contact: " + document.getElementById("lfContact").value.trim() + "\n"
     + "Type: " + document.getElementById("lfType").value + "\n"
     + "Message: " + document.getElementById("lfMsg").value.trim();
-  if(TG_BOT_TOKEN && TG_CHAT_ID){
+  if(TG_BOT_TOKEN && TG_CHAT_IDS.length){
     try{
-      const r = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,{
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({chat_id:TG_CHAT_ID,text:payload})
-      });
-      if(!r.ok) throw 0;
+      const results = await Promise.all(TG_CHAT_IDS.map(id=>
+        fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({chat_id:id,text:payload})
+        }).then(r=>r.ok).catch(()=>false)
+      ));
+      if(!results.some(ok=>ok)) throw 0;
       st.textContent = t.f_ok; leadForm.reset();
     }catch(err){ st.textContent = t.f_err; }
   }else{
@@ -1219,7 +1310,15 @@ function observeReveals(){
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
-render();
+/* initial language: saved choice > browser language > AZ */
+let initLang = "az";
+try{ initLang = localStorage.getItem("ga-lang") || ""; }catch(e){}
+if(!initLang){
+  const nav = (navigator.language||"").toLowerCase();
+  initLang = nav.startsWith("ru") ? "ru" : nav.startsWith("az") ? "az" : nav.startsWith("en") ? "en" : "az";
+}
+applyLang(initLang);
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
