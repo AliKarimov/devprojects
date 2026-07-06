@@ -71,6 +71,63 @@ body::before{
 }
 h1,h2,h3,.display{font-family:'Unbounded','Inter',sans-serif}
 a{color:inherit;text-decoration:none}
+::selection{background:rgba(217,172,78,.35)}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--panel-2);border-radius:99px;border:2px solid var(--ink)}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-lo)}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:100;
+  background:linear-gradient(90deg,var(--gold-hi),var(--gold));
+  box-shadow:0 0 8px rgba(217,172,78,.6)}
+/* rotating focus word */
+.rot-line{margin-top:18px;font-size:.86rem;color:var(--muted);display:flex;align-items:center;gap:10px}
+.rotator{
+  font-family:'Unbounded';font-size:.8rem;font-weight:500;color:var(--gold);
+  display:inline-block;min-width:150px;transition:opacity .35s,transform .35s;
+}
+.rotator.out{opacity:0;transform:translateY(6px)}
+/* tech ribbon */
+.ribbon{
+  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+  padding:16px 0;overflow:hidden;position:relative;
+  mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+}
+.ribbon-track{display:flex;width:max-content;animation:scrollx 38s linear infinite}
+.ribbon:hover .ribbon-track{animation-play-state:paused}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+.ribbon span{
+  font:600 .7rem 'Unbounded';letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;padding-right:22px;
+}
+.ribbon span::after{content:"◆";color:var(--gold);opacity:.6;font-size:.45rem;margin-left:22px;vertical-align:2px}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+.stat{
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:22px 20px;text-align:center;
+  background:linear-gradient(160deg,var(--panel),transparent);
+}
+.stat b{
+  display:block;font:600 1.7rem 'Unbounded';margin-bottom:6px;
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 60%,var(--gold-lo));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat span{font-size:.78rem;color:var(--muted);line-height:1.4;display:block}
+/* back to top */
+#toTop{
+  position:fixed;bottom:26px;right:26px;z-index:60;
+  width:44px;height:44px;border-radius:50%;cursor:pointer;
+  border:1px solid var(--line);background:var(--panel);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transform:translateY(10px);
+  transition:opacity .3s,transform .3s,border-color .2s;
+  box-shadow:0 6px 24px rgba(0,0,0,.3);
+}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+#toTop:hover{border-color:var(--gold)}
+@media (max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}}
+
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
 /* ---------- header ---------- */
@@ -126,9 +183,12 @@ html[data-theme="light"] .theme-btn .moon{display:none}
   letter-spacing:-.01em;margin-bottom:22px;
 }
 .hero h1 .g{
-  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 55%,var(--gold-lo));
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 45%,var(--gold-lo) 70%,var(--gold-hi));
+  background-size:220% auto;
   -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 7s linear infinite;
 }
+@keyframes shimmer{to{background-position:-220% center}}
 .hero p{color:var(--muted);max-width:52ch;margin-bottom:32px;font-size:1.02rem}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .btn{
@@ -305,6 +365,10 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
 </style>
 </head>
 <body>
+<div id="progress"></div>
+<button id="toTop" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <header>
   <div class="wrap nav">
@@ -353,6 +417,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
         <a href="#services" class="btn btn-ghost" data-i18n="hero_cta2"></a>
       </div>
       <div class="paid-note"><span class="dot"></span><span data-i18n="paid_note"></span></div>
+      <div class="rot-line"><span data-i18n="rot_label"></span><span class="rotator" id="rotator">Fintech</span></div>
     </div>
 
     <div class="diagram" aria-hidden="true">
@@ -405,7 +470,15 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
       </svg>
     </div>
   </div>
+  <div class="wrap">
+    <div class="stats rv" id="stats"></div>
+  </div>
 </section>
+
+<!-- TECH RIBBON -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track" id="ribbonTrack"></div>
+</div>
 
 <!-- ECOSYSTEM -->
 <section id="ecosystem" class="eco">
@@ -531,6 +604,8 @@ az:{
   hero_p:"Mən yalnız saytlar hazırlamıram — tam funksional rəqəmsal məhsullar və kompleks infrastrukturlar layihələndirir və qururam. Yaradılma mərhələsindən istifadəyə verilməsinə və miqyaslandırılmasına qədər.",
   hero_cta1:"Layihəni müzakirə et",hero_cta2:"Xidmətlərə bax",
   paid_note:"Konsultasiya və audit ödənişlidir.",
+  rot_label:"Fokus istiqamətlər:",
+  stats:[["6","ekosistem istiqaməti"],["30+","texnologiya stackdə"],["12","xidmət kateqoriyası"],["360°","tam dövriyyəli inkişaf"]],
   srv_eyebrow:"Nə qururam",srv_title:"İstənilən səviyyədə rəqəmsal məhsullar",
   srv_sub:"Sadə korporativ saytdan mürəkkəb maliyyə platformasına qədər — real biznes məntiqi ilə.",
   services:[
@@ -593,6 +668,8 @@ ru:{
   hero_p:"Я не просто делаю сайты — проектирую и строю полноценные цифровые продукты и комплексные инфраструктуры. От замысла до запуска и масштабирования.",
   hero_cta1:"Обсудить проект",hero_cta2:"Смотреть услуги",
   paid_note:"Консультация и аудит — платные услуги.",
+  rot_label:"Фокусные направления:",
+  stats:[["6","направлений экосистемы"],["30+","технологий в стеке"],["12","категорий услуг"],["360°","полный цикл разработки"]],
   srv_eyebrow:"Что мы создаём",srv_title:"Цифровые продукты любого уровня",
   srv_sub:"От корпоративного сайта до сложной финансовой платформы — с реальной бизнес-логикой.",
   services:[
@@ -655,6 +732,8 @@ en:{
   hero_p:"I don't just build websites — I design and build complete digital products and complex infrastructures. From concept to launch and scaling.",
   hero_cta1:"Discuss a project",hero_cta2:"View services",
   paid_note:"Consultation and audit are paid services.",
+  rot_label:"Focus areas:",
+  stats:[["6","ecosystem directions"],["30+","technologies in the stack"],["12","service categories"],["360°","full-cycle development"]],
   srv_eyebrow:"What we build",srv_title:"Digital products of any level",
   srv_sub:"From a corporate website to a complex financial platform — with real business logic inside.",
   services:[
@@ -743,6 +822,9 @@ function render(){
     const k = el.getAttribute("data-i18n");
     if(t[k]) el.textContent = t[k];
   });
+  /* stats */
+  document.getElementById("stats").innerHTML = t.stats.map(s=>`
+    <div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join("");
   /* ecosystem */
   document.getElementById("ecoCards").innerHTML = t.eco_items.map(e=>`
     <div class="eco-card rv in"><span class="tag">${e[0]}</span><h3>${e[1]}</h3><p>${e[2]}</p></div>`).join("");
@@ -787,6 +869,38 @@ try{
   const saved = localStorage.getItem("ga-theme");
   if(saved) setTheme(saved);
 }catch(e){}
+
+/* tech ribbon (duplicated for seamless loop) */
+const RIBBON = ["Python","TypeScript","React","Next.js","Node.js","Rust","Go","FastAPI","PostgreSQL","Redis","Docker","Kubernetes","Solana","Web3","Smart Contracts","AI / ML","GraphQL","WebSocket"];
+document.getElementById("ribbonTrack").innerHTML =
+  [...RIBBON,...RIBBON].map(x=>`<span>${x}</span>`).join("");
+
+/* rotating focus word */
+const ROT = ["Fintech","Investments","AI Systems","Blockchain","Web3 · Solana","SaaS","Trading Systems","Automation","Analytics"];
+let rotI = 0;
+const rotEl = document.getElementById("rotator");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduceMotion){
+  setInterval(()=>{
+    rotEl.classList.add("out");
+    setTimeout(()=>{
+      rotI = (rotI+1)%ROT.length;
+      rotEl.textContent = ROT[rotI];
+      rotEl.classList.remove("out");
+    },350);
+  },2600);
+}
+
+/* scroll progress + back to top */
+const progress = document.getElementById("progress");
+const toTop = document.getElementById("toTop");
+window.addEventListener("scroll",()=>{
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  progress.style.width = (max>0 ? (h.scrollTop/max)*100 : 0) + "%";
+  toTop.classList.toggle("show", h.scrollTop > 600);
+},{passive:true});
+toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"}));
 
 /* mobile menu */
 const burger = document.getElementById("burger");
