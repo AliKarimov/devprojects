@@ -241,6 +241,35 @@ html[data-theme="light"] .theme-btn .moon{display:none}
 @media (max-width:960px){.eco-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.eco-grid{grid-template-columns:1fr}}
 
+/* custom request banner */
+.custom-note{
+  margin-top:22px;border:1px dashed var(--line);border-radius:var(--radius);
+  padding:26px 28px;display:flex;justify-content:space-between;align-items:center;
+  gap:20px;flex-wrap:wrap;background:rgba(217,172,78,.03);
+}
+.custom-note p{color:var(--muted);font-size:.92rem;max-width:60ch;margin:0}
+/* terminal */
+.stack-top{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;margin-bottom:44px}
+.stack-top .sec-head{margin-bottom:0}
+.term{
+  background:#0A0F1D;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 16px 44px rgba(0,0,0,.4);
+  font-family:ui-monospace,'SF Mono','Cascadia Code','Courier New',monospace;
+}
+.term-bar{display:flex;gap:6px;align-items:center;padding:11px 14px;background:#0D1322;border-bottom:1px solid rgba(217,172,78,.12)}
+.term-bar span{width:10px;height:10px;border-radius:50%}
+.term-bar .r{background:#FF5F57}.term-bar .y{background:#FEBC2E}.term-bar .g2{background:#28C840}
+.term-bar em{margin-left:10px;font:500 .68rem 'Inter';font-style:normal;color:#5C6880;letter-spacing:.06em}
+.term pre{
+  padding:18px 20px;font-size:.78rem;line-height:1.85;color:#B9C2D8;
+  min-height:196px;white-space:pre-wrap;margin:0;
+}
+.term pre .cmd{color:#EAE7DE}
+.term pre .ok{color:#D9AC4E}
+.term pre::after{content:"▋";color:#D9AC4E;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (max-width:960px){.stack-top{grid-template-columns:1fr;gap:28px}}
+
 /* ---------- sections ---------- */
 section{padding:78px 0}
 .sec-head{margin-bottom:46px;max-width:640px}
@@ -501,6 +530,10 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
       <p data-i18n="srv_sub"></p>
     </div>
     <div class="cards" id="serviceCards"></div>
+    <div class="custom-note rv">
+      <p data-i18n="cn_text"></p>
+      <a href="#contact" class="btn btn-gold" data-i18n="cn_btn"></a>
+    </div>
   </div>
 </section>
 
@@ -519,10 +552,16 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
 <!-- STACK -->
 <section id="stack">
   <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow" data-i18n="stk_eyebrow"></span>
-      <h2 data-i18n="stk_title"></h2>
-      <p data-i18n="stk_sub"></p>
+    <div class="stack-top">
+      <div class="sec-head rv">
+        <span class="eyebrow" data-i18n="stk_eyebrow"></span>
+        <h2 data-i18n="stk_title"></h2>
+        <p data-i18n="stk_sub"></p>
+      </div>
+      <div class="term rv" aria-hidden="true">
+        <div class="term-bar"><span class="r"></span><span class="y"></span><span class="g2"></span><em>golden-age — production deploy</em></div>
+        <pre id="termBody"></pre>
+      </div>
     </div>
     <div class="stack-groups" id="stackGroups"></div>
   </div>
@@ -608,6 +647,8 @@ az:{
   stats:[["6","ekosistem istiqaməti"],["30+","texnologiya stackdə"],["12","xidmət kateqoriyası"],["360°","tam dövriyyəli inkişaf"]],
   srv_eyebrow:"Nə qururam",srv_title:"İstənilən səviyyədə rəqəmsal məhsullar",
   srv_sub:"Sadə korporativ saytdan mürəkkəb maliyyə platformasına qədər — real biznes məntiqi ilə.",
+  cn_text:"Öz istiqamətinizi tapmadınız? Müştərinin tələb etdiyi istənilən məhsulu hazırlaya bilirik — sadəcə ideyanızı təsvir edin.",
+  cn_btn:"Layihəni müzakirə et",
   services:[
     ["Biznes saytları və korporativ platformalar","Şirkətiniz üçün etibarlı rəqəmsal təməl."],
     ["Startaplar və MVP məhsullar","İdeyanı sürətlə bazara çıxarılan məhsula çeviririk."],
@@ -620,7 +661,13 @@ az:{
     ["Web3 / Blockchain / Solana","Smart contract-lar, Ethereum, Solana, BNB Chain."],
     ["Admin panellər və dashboard-lar","Real vaxtda idarəetmə və analitika."],
     ["Real-time sistemlər və API-lər","WebSocket, REST, GraphQL xidmətləri."],
-    ["İstənilən səviyyədə proqram təminatı","Fərdi tapşırıqlar üçün fərdi həllər."]
+    ["Mobil və PWA tətbiqlər","Kross-platforma tətbiqlər və proqressiv veb tətbiqlər."],
+    ["Ödəniş inteqrasiyaları","Stripe, bank API-ləri və kripto ödəniş şlüzləri."],
+    ["Kripto birjalar və pulqabılar","Birja mühərrikləri, custody və pulqabı infrastrukturu."],
+    ["NFT və DeFi platformaları","Marketplace-lər, staking və DeFi protokolları."],
+    ["Cloud və DevOps infrastrukturu","Yüksək yüklü sistemlər, CI/CD və bulud arxitekturası."],
+    ["Təhsil platformaları (LMS)","Kurslar, testlər və təlim ekosistemləri."],
+    ["İstənilən səviyyədə proqram təminatı","Müştərinin tələb etdiyi istənilən məhsul — fərdi həllərlə."]
   ],
   prc_eyebrow:"İş yanaşmam",prc_title:"İcraçı kimi yox — sistem arxitektoru kimi",
   prc_sub:"Hər layihə eyni nizamlı prosesdən keçir: etibarlı sistemlər, miqyaslana bilən arxitektura, uzunmüddətli məhsullar.",
@@ -672,6 +719,8 @@ ru:{
   stats:[["6","направлений экосистемы"],["30+","технологий в стеке"],["12","категорий услуг"],["360°","полный цикл разработки"]],
   srv_eyebrow:"Что мы создаём",srv_title:"Цифровые продукты любого уровня",
   srv_sub:"От корпоративного сайта до сложной финансовой платформы — с реальной бизнес-логикой.",
+  cn_text:"Не нашли своё направление? Мы разрабатываем любой продукт под задачу клиента — просто опишите вашу идею.",
+  cn_btn:"Обсудить проект",
   services:[
     ["Бизнес-сайты и корпоративные платформы","Надёжный цифровой фундамент для компании."],
     ["Стартапы и MVP-продукты","Быстро превращаем идею в продукт для рынка."],
@@ -684,7 +733,13 @@ ru:{
     ["Web3 / Blockchain / Solana","Смарт-контракты, Ethereum, Solana, BNB Chain."],
     ["Админ-панели и дашборды","Управление и аналитика в реальном времени."],
     ["Real-time системы и API","WebSocket, REST, GraphQL сервисы."],
-    ["Разработка программ любого уровня","Индивидуальные решения под индивидуальные задачи."]
+    ["Мобильные и PWA-приложения","Кроссплатформенные и прогрессивные веб-приложения."],
+    ["Платёжные интеграции","Stripe, банковские API и криптоплатёжные шлюзы."],
+    ["Криптобиржи и кошельки","Биржевые движки, кастоди и инфраструктура кошельков."],
+    ["NFT и DeFi платформы","Маркетплейсы, стейкинг и DeFi-протоколы."],
+    ["Cloud и DevOps инфраструктура","Высоконагруженные системы, CI/CD и облачная архитектура."],
+    ["Образовательные платформы (LMS)","Курсы, тестирование и обучающие экосистемы."],
+    ["Разработка программ любого уровня","Любой продукт под задачу клиента — индивидуальные решения."]
   ],
   prc_eyebrow:"Наш подход",prc_title:"Не как исполнитель — как системный архитектор",
   prc_sub:"Каждый проект проходит один выверенный процесс: надёжные системы, масштабируемая архитектура, долгосрочные продукты.",
@@ -736,6 +791,8 @@ en:{
   stats:[["6","ecosystem directions"],["30+","technologies in the stack"],["12","service categories"],["360°","full-cycle development"]],
   srv_eyebrow:"What we build",srv_title:"Digital products of any level",
   srv_sub:"From a corporate website to a complex financial platform — with real business logic inside.",
+  cn_text:"Didn't find your direction? We build any product a client needs — just describe your idea.",
+  cn_btn:"Discuss a project",
   services:[
     ["Business websites & corporate platforms","A reliable digital foundation for your company."],
     ["Startups & MVP products","Turning an idea into a market-ready product, fast."],
@@ -748,7 +805,13 @@ en:{
     ["Web3 / Blockchain / Solana","Smart contracts, Ethereum, Solana, BNB Chain."],
     ["Admin panels & dashboards","Real-time management and analytics."],
     ["Real-time systems & APIs","WebSocket, REST, and GraphQL services."],
-    ["Software of any level","Custom solutions for custom problems."]
+    ["Mobile & PWA applications","Cross-platform apps and progressive web apps."],
+    ["Payment integrations","Stripe, bank APIs, and crypto payment gateways."],
+    ["Crypto exchanges & wallets","Exchange engines, custody, and wallet infrastructure."],
+    ["NFT & DeFi platforms","Marketplaces, staking, and DeFi protocols."],
+    ["Cloud & DevOps infrastructure","High-load systems, CI/CD, and cloud architecture."],
+    ["Educational platforms (LMS)","Courses, testing, and learning ecosystems."],
+    ["Software of any level","Any product a client needs — custom solutions."]
   ],
   prc_eyebrow:"How we work",prc_title:"Not as a contractor — as a system architect",
   prc_sub:"Every project follows one disciplined process: reliable systems, scalable architecture, long-term products.",
@@ -787,7 +850,8 @@ const STACK = [
   ["Data",["PostgreSQL","MySQL","MongoDB","Redis"]],
   ["Infrastructure",["Docker","Kubernetes","Linux","Nginx","CI/CD · GitHub Actions","Microservices"]],
   ["API & Real-time",["REST API","GraphQL","WebSocket","Telegram Bot API"]],
-  ["AI & Web3",["AI / ML","OpenAI API","Ethereum","Solana","BNB Chain","Smart Contracts","Web3"]]
+  ["AI & Automation",["AI / ML","OpenAI API","LLM Integrations","Intelligent Automation"]],
+  ["Blockchain & Web3",["Ethereum","Solana","BNB Chain","TON","Polygon","Arbitrum","Base","Avalanche","Tron","Bitcoin","Smart Contracts","DeFi","NFT","Web3"]]
 ];
 
 const ICONS = [
@@ -802,6 +866,12 @@ const ICONS = [
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 2v9m0 0l8 4.5M12 11L4 15.5"/></svg>',
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 7H5a2 2 0 00-2 2v8a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM16 7V5a2 2 0 00-2-2H5"/><circle cx="16.5" cy="13.5" r="1.2"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 18a4 4 0 01-.6-7.96A5.5 5.5 0 0117.2 11 3.5 3.5 0 0117 18H7z"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>',
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>'
 ];
 const BIZ_ICONS = [
@@ -871,7 +941,7 @@ try{
 }catch(e){}
 
 /* tech ribbon (duplicated for seamless loop) */
-const RIBBON = ["Python","TypeScript","React","Next.js","Node.js","Rust","Go","FastAPI","PostgreSQL","Redis","Docker","Kubernetes","Solana","Web3","Smart Contracts","AI / ML","GraphQL","WebSocket"];
+const RIBBON = ["Python","TypeScript","React","Next.js","Node.js","Rust","Go","FastAPI","PostgreSQL","Redis","Docker","Kubernetes","Ethereum","Solana","TON","Polygon","Smart Contracts","DeFi","AI / ML","GraphQL","WebSocket"];
 document.getElementById("ribbonTrack").innerHTML =
   [...RIBBON,...RIBBON].map(x=>`<span>${x}</span>`).join("");
 
@@ -901,6 +971,40 @@ window.addEventListener("scroll",()=>{
   toTop.classList.toggle("show", h.scrollTop > 600);
 },{passive:true});
 toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"}));
+
+/* animated deploy terminal */
+const TERM_LINES = [
+  ["cmd","$ git push origin main"],
+  ["ok","  ✓ build passed · 0 errors · 0 warnings"],
+  ["cmd","$ docker compose up -d"],
+  ["ok","  ✓ services running · api · db · redis"],
+  ["cmd","$ deploy --prod"],
+  ["ok","  ✓ Golden Age → live in production"]
+];
+const termBody = document.getElementById("termBody");
+if(reduceMotion){
+  termBody.innerHTML = TERM_LINES.map(l=>`<span class="${l[0]}">${l[1]}</span>`).join("\n");
+}else{
+  (function typeTerm(){
+    termBody.innerHTML = "";
+    let li = 0;
+    (function nextLine(){
+      if(li >= TERM_LINES.length){ setTimeout(typeTerm, 4200); return; }
+      const [cls,text] = TERM_LINES[li];
+      const span = document.createElement("span");
+      span.className = cls;
+      termBody.appendChild(span);
+      termBody.appendChild(document.createTextNode("\n"));
+      let ci = 0;
+      (function typeChar(){
+        if(ci <= text.length){
+          span.textContent = text.slice(0,ci); ci++;
+          setTimeout(typeChar, cls==="ok" ? 9 : 30);
+        }else{ li++; setTimeout(nextLine, 380); }
+      })();
+    })();
+  })();
+}
 
 /* mobile menu */
 const burger = document.getElementById("burger");
