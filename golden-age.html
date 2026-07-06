@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Age — Digital Systems & Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080C16;
+  --panel:#0E1424;
+  --panel-2:#121A2E;
+  --gold:#D9AC4E;
+  --gold-hi:#F0D08A;
+  --gold-lo:#9C7426;
+  --text:#EAE7DE;
+  --muted:#8E97AC;
+  --line:rgba(217,172,78,.16);
+  --line-soft:rgba(217,172,78,.08);
+  --header-bg:rgba(8,12,22,.82);
+  --clink-bg:rgba(8,12,22,.5);
+  --radius:14px;
+}
+html[data-theme="light"]{
+  --ink:#FAF8F3;
+  --panel:#FFFFFF;
+  --panel-2:#F3EFE5;
+  --gold:#A87B22;
+  --gold-hi:#C89A3E;
+  --gold-lo:#7C5A16;
+  --text:#1C202B;
+  --muted:#5C6272;
+  --line:rgba(140,100,30,.28);
+  --line-soft:rgba(140,100,30,.13);
+  --header-bg:rgba(250,248,243,.85);
+  --clink-bg:rgba(255,255,255,.7);
+}
+html{background:var(--ink)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--text);
+  transition:background .35s ease,color .35s ease;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,black 0%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,black 0%,transparent 75%);
+}
+h1,h2,h3,.display{font-family:'Unbounded','Inter',sans-serif}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--header-bg);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Unbounded';font-weight:600;font-size:.95rem;letter-spacing:.12em}
+.logo-mark{width:30px;height:30px;flex:none}
+.nav-links{display:flex;gap:28px;font-size:.85rem;color:var(--muted)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--gold-hi)}
+.lang{display:flex;gap:2px;border:1px solid var(--line);border-radius:99px;padding:3px}
+.lang button{
+  background:none;border:0;color:var(--muted);font:600 .74rem 'Inter';
+  padding:5px 11px;border-radius:99px;cursor:pointer;letter-spacing:.06em;transition:.2s;
+}
+.lang button:hover{color:var(--text)}
+.lang button.on{background:var(--gold);color:#1A1206}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;color:var(--gold);width:38px;height:38px;font-size:1.1rem;cursor:pointer}
+.theme-btn{
+  background:none;border:1px solid var(--line);border-radius:99px;
+  width:36px;height:36px;cursor:pointer;color:var(--gold);
+  display:flex;align-items:center;justify-content:center;flex:none;
+  transition:border-color .2s,transform .2s;
+}
+.theme-btn:hover{border-color:var(--gold);transform:rotate(15deg)}
+.theme-btn svg{width:17px;height:17px}
+.theme-btn .sun{display:none}
+html[data-theme="light"] .theme-btn .sun{display:block}
+html[data-theme="light"] .theme-btn .moon{display:none}
+/* SVG diagram & logo follow theme (CSS beats presentation attributes) */
+.diagram [fill="#0E1424"]{fill:var(--panel)}
+.diagram [stroke="#D9AC4E"]{stroke:var(--gold)}
+.diagram circle[fill="#D9AC4E"]{fill:var(--gold)}
+.logo-mark [stroke="#D9AC4E"]{stroke:var(--gold)}
+.logo-mark [fill="#D9AC4E"]{fill:var(--gold)}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 72px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font:600 .72rem 'Inter';letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+.hero h1{
+  font-size:clamp(1.7rem,3.6vw,2.9rem);font-weight:600;line-height:1.18;
+  letter-spacing:-.01em;margin-bottom:22px;
+}
+.hero h1 .g{
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 55%,var(--gold-lo));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:var(--muted);max-width:52ch;margin-bottom:32px;font-size:1.02rem}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font:600 .88rem 'Inter';padding:14px 26px;border-radius:10px;
+  transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:0;
+}
+.btn-gold{
+  background:linear-gradient(120deg,var(--gold-hi),var(--gold) 60%,var(--gold-lo));
+  color:#1A1206;box-shadow:0 6px 26px rgba(217,172,78,.28);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(217,172,78,.4)}
+.btn-ghost{border:1px solid var(--line);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+.paid-note{margin-top:20px;font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.paid-note .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none}
+
+/* hero diagram */
+.diagram{position:relative}
+.diagram svg{width:100%;height:auto;display:block}
+.node-label{font:500 10.5px 'Inter';fill:var(--muted);letter-spacing:.04em}
+.node-label.core{fill:var(--gold-hi);font-family:'Unbounded';font-size:9.5px;letter-spacing:.14em}
+@keyframes dashflow{to{stroke-dashoffset:-120}}
+.flow{stroke:var(--gold);stroke-opacity:.5;stroke-width:1;fill:none;stroke-dasharray:3 9;animation:dashflow 6s linear infinite}
+.wire{stroke:var(--line);stroke-width:1;fill:none}
+@keyframes corePulse{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.08;transform:scale(1.25)}}
+.core-glow{transform-origin:center;transform-box:fill-box;animation:corePulse 4s ease-in-out infinite}
+
+/* ---------- sections ---------- */
+section{padding:78px 0}
+.sec-head{margin-bottom:46px;max-width:640px}
+.sec-head h2{font-size:clamp(1.25rem,2.4vw,1.8rem);font-weight:600;margin:14px 0 12px;line-height:1.3}
+.sec-head p{color:var(--muted)}
+
+/* services */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{
+  background:linear-gradient(160deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:26px 24px;transition:border-color .25s,transform .25s;
+}
+.card:hover{border-color:var(--line);transform:translateY(-3px)}
+.card .ic{
+  width:38px;height:38px;border-radius:10px;margin-bottom:16px;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--gold);
+}
+.card h3{font-size:.92rem;font-weight:500;margin-bottom:8px;line-height:1.35}
+.card p{font-size:.85rem;color:var(--muted)}
+
+/* process */
+.process{background:linear-gradient(180deg,transparent,rgba(217,172,78,.03),transparent)}
+.pipe{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;margin-top:8px}
+.pipe::before{
+  content:"";position:absolute;top:19px;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;
+}
+.step{text-align:center;padding:0 8px;position:relative}
+.step .n{
+  width:38px;height:38px;margin:0 auto 14px;border-radius:50%;
+  border:1px solid var(--gold);background:var(--ink);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font:600 .78rem 'Unbounded';position:relative;z-index:1;
+}
+.step h3{font-size:.82rem;font-weight:500;margin-bottom:6px}
+.step p{font-size:.76rem;color:var(--muted);line-height:1.5}
+
+/* stack */
+.stack-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sg{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);padding:24px}
+.sg h3{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font:500 .78rem 'Inter';color:var(--text);
+  border:1px solid var(--line-soft);border-radius:99px;padding:6px 13px;
+  transition:border-color .2s,color .2s;
+}
+.chip:hover{border-color:var(--gold);color:var(--gold-hi)}
+
+/* business */
+.biz{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.biz .card{display:flex;gap:18px;align-items:flex-start}
+.biz .card .ic{flex:none;margin:2px 0 0}
+
+/* formats */
+.formats{display:flex;flex-wrap:wrap;gap:10px}
+.fmt{
+  border:1px solid var(--line);border-radius:99px;padding:10px 20px;
+  font-size:.85rem;color:var(--text);background:rgba(217,172,78,.04);
+}
+
+/* contact */
+.contact-box{
+  background:linear-gradient(140deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);border-radius:20px;
+  padding:56px 48px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.contact-box::after{
+  content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,172,78,.14),transparent 70%);pointer-events:none;
+}
+.contact-box h2{font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:600;margin-bottom:14px;line-height:1.3}
+.contact-box p{color:var(--muted);margin-bottom:0}
+.contact-links{display:flex;flex-direction:column;gap:12px}
+.clink{
+  display:flex;align-items:center;gap:14px;border:1px solid var(--line-soft);
+  border-radius:12px;padding:15px 18px;background:var(--clink-bg);
+  transition:border-color .2s,transform .2s;font-size:.9rem;
+}
+.clink:hover{border-color:var(--gold);transform:translateX(4px)}
+.clink .ic{color:var(--gold);flex:none;display:flex}
+.clink small{display:block;color:var(--muted);font-size:.74rem}
+
+footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);font-size:.8rem}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .diagram{max-width:520px;margin:0 auto}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .pipe{grid-template-columns:repeat(3,1fr);row-gap:34px}
+  .pipe::before{display:none}
+  .stack-groups,.biz{grid-template-columns:1fr}
+  .contact-box{grid-template-columns:1fr;padding:40px 28px}
+  .nav-links{
+    display:none;position:absolute;top:68px;left:0;right:0;
+    background:var(--ink);border-bottom:1px solid var(--line-soft);
+    flex-direction:column;gap:0;padding:10px 24px 18px;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .burger{display:block}
+}
+@media (max-width:560px){
+  .cards{grid-template-columns:1fr}
+  .pipe{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:56px 0 48px}
+  section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Golden Age">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="14.5" stroke="#D9AC4E" stroke-width="1.4"/>
+        <circle cx="16" cy="16" r="3.2" fill="#D9AC4E"/>
+        <path d="M16 4v6M16 22v6M4 16h6M22 16h6" stroke="#D9AC4E" stroke-width="1.2"/>
+      </svg>
+      GOLDEN&nbsp;AGE
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services" data-i18n="nav_services"></a>
+      <a href="#process" data-i18n="nav_process"></a>
+      <a href="#stack" data-i18n="nav_stack"></a>
+      <a href="#business" data-i18n="nav_business"></a>
+      <a href="#contact" data-i18n="nav_contact"></a>
+    </nav>
+    <div style="display:flex;gap:12px;align-items:center">
+      <button class="theme-btn" id="themeBtn" aria-label="Theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+      </button>
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="az" class="on">AZ</button>
+        <button data-lang="ru">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow" data-i18n="hero_eyebrow"></span>
+      <h1><span data-i18n="hero_h1a"></span> <span class="g" data-i18n="hero_h1b"></span></h1>
+      <p data-i18n="hero_p"></p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-gold" data-i18n="hero_cta1"></a>
+        <a href="#services" class="btn btn-ghost" data-i18n="hero_cta2"></a>
+      </div>
+      <div class="paid-note"><span class="dot"></span><span data-i18n="paid_note"></span></div>
+    </div>
+
+    <div class="diagram" aria-hidden="true">
+      <svg viewBox="0 0 520 440" xmlns="http://www.w3.org/2000/svg">
+        <!-- wires -->
+        <path class="wire" d="M260 220 L120 90"/>
+        <path class="wire" d="M260 220 L400 90"/>
+        <path class="wire" d="M260 220 L70 230"/>
+        <path class="wire" d="M260 220 L450 230"/>
+        <path class="wire" d="M260 220 L130 360"/>
+        <path class="wire" d="M260 220 L390 360"/>
+        <path class="wire" d="M120 90 L400 90"/>
+        <path class="wire" d="M70 230 L130 360"/>
+        <path class="wire" d="M450 230 L390 360"/>
+        <!-- animated flows -->
+        <path class="flow" d="M260 220 L120 90"/>
+        <path class="flow" d="M260 220 L450 230"/>
+        <path class="flow" d="M260 220 L390 360"/>
+        <path class="flow" d="M260 220 L70 230"/>
+        <!-- core -->
+        <circle class="core-glow" cx="260" cy="220" r="46" fill="#D9AC4E"/>
+        <circle cx="260" cy="220" r="34" fill="#0E1424" stroke="#D9AC4E" stroke-width="1.4"/>
+        <circle cx="260" cy="220" r="26" fill="none" stroke="#D9AC4E" stroke-opacity=".35" stroke-dasharray="2 5"/>
+        <text class="node-label core" x="260" y="224" text-anchor="middle">CORE</text>
+        <!-- satellite nodes -->
+        <g>
+          <circle cx="120" cy="90" r="21" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="120" y="94" text-anchor="middle">API</text>
+        </g>
+        <g>
+          <circle cx="400" cy="90" r="21" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="400" y="94" text-anchor="middle">AI</text>
+        </g>
+        <g>
+          <circle cx="70" cy="230" r="24" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="70" y="234" text-anchor="middle">SaaS</text>
+        </g>
+        <g>
+          <circle cx="450" cy="230" r="24" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="450" y="234" text-anchor="middle">Web3</text>
+        </g>
+        <g>
+          <circle cx="130" cy="360" r="22" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="130" y="364" text-anchor="middle">Data</text>
+        </g>
+        <g>
+          <circle cx="390" cy="360" r="22" fill="#0E1424" stroke="#D9AC4E" stroke-opacity=".55"/>
+          <text class="node-label" x="390" y="364" text-anchor="middle">Cloud</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="srv_eyebrow"></span>
+      <h2 data-i18n="srv_title"></h2>
+      <p data-i18n="srv_sub"></p>
+    </div>
+    <div class="cards" id="serviceCards"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="process">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="prc_eyebrow"></span>
+      <h2 data-i18n="prc_title"></h2>
+      <p data-i18n="prc_sub"></p>
+    </div>
+    <div class="pipe" id="pipe"></div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="stk_eyebrow"></span>
+      <h2 data-i18n="stk_title"></h2>
+      <p data-i18n="stk_sub"></p>
+    </div>
+    <div class="stack-groups" id="stackGroups"></div>
+  </div>
+</section>
+
+<!-- BUSINESS SERVICES -->
+<section id="business">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="biz_eyebrow"></span>
+      <h2 data-i18n="biz_title"></h2>
+      <p data-i18n="biz_sub"></p>
+    </div>
+    <div class="biz" id="bizCards"></div>
+
+    <div class="sec-head rv" style="margin-top:64px">
+      <span class="eyebrow" data-i18n="fmt_eyebrow"></span>
+      <h2 data-i18n="fmt_title"></h2>
+    </div>
+    <div class="formats rv" id="formats"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box rv">
+      <div>
+        <span class="eyebrow" data-i18n="cta_eyebrow"></span>
+        <h2 data-i18n="cta_title"></h2>
+        <p data-i18n="cta_sub"></p>
+        <div class="paid-note"><span class="dot"></span><span data-i18n="paid_note"></span></div>
+      </div>
+      <div class="contact-links">
+        <a class="clink" href="https://t.me/YOUR_TELEGRAM" target="_blank" rel="noopener">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 3L2 10.5l6.5 2.5M22 3l-4 17-8.5-7M22 3L9.5 13.5V20l3-4"/></svg></span>
+          <span>Telegram<small>@YOUR_TELEGRAM</small></span>
+        </a>
+        <a class="clink" href="mailto:hello@goldenage.dev">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+          <span>Email<small>hello@goldenage.dev</small></span>
+        </a>
+        <a class="clink" href="https://wa.me/994000000000" target="_blank" rel="noopener">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z"/></svg></span>
+          <span>WhatsApp<small>+994 00 000 00 00</small></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year"></span> Golden Age · <span data-i18n="foot_tag"></span></span>
+    <span data-i18n="foot_loc"></span>
+  </div>
+</footer>
+
+<script>
+/* ================= I18N ================= */
+const T = {
+az:{
+  nav_services:"Xidmətlər",nav_process:"Proses",nav_stack:"Texnologiyalar",nav_business:"Biznes",nav_contact:"Əlaqə",
+  hero_eyebrow:"Sistem arxitekturası · Tam dövriyyəli inkişaf",
+  hero_h1a:"İdeyadan işlək",hero_h1b:"rəqəmsal sistemə qədər.",
+  hero_p:"Mən yalnız saytlar hazırlamıram — tam funksional rəqəmsal məhsullar və kompleks infrastrukturlar layihələndirir və qururam. Yaradılma mərhələsindən istifadəyə verilməsinə və miqyaslandırılmasına qədər.",
+  hero_cta1:"Layihəni müzakirə et",hero_cta2:"Xidmətlərə bax",
+  paid_note:"Konsultasiya və audit ödənişlidir.",
+  srv_eyebrow:"Nə qururam",srv_title:"İstənilən səviyyədə rəqəmsal məhsullar",
+  srv_sub:"Sadə korporativ saytdan mürəkkəb maliyyə platformasına qədər — real biznes məntiqi ilə.",
+  services:[
+    ["Biznes saytları və korporativ platformalar","Şirkətiniz üçün etibarlı rəqəmsal təməl."],
+    ["Startaplar və MVP məhsullar","İdeyanı sürətlə bazara çıxarılan məhsula çeviririk."],
+    ["SaaS və abunə sistemləri","Ödəniş, tariflər və istifadəçi idarəetməsi ilə."],
+    ["E-commerce və marketplace","Kataloq, ödəniş, logistika — tam dövriyyə."],
+    ["CRM / ERP sistemləri","Biznes prosesləriniz üçün fərdi idarəetmə sistemləri."],
+    ["Maliyyə və investisiya platformaları","Fintech, trading və analitika sistemləri."],
+    ["AI məhsulları və avtomatlaşdırma","OpenAI API, ML modelləri, ağıllı proseslər."],
+    ["Telegram botları və ekosistemlər","Botdan tam ekosistemə qədər."],
+    ["Web3 / Blockchain / Solana","Smart contract-lar, Ethereum, Solana, BNB Chain."],
+    ["Admin panellər və dashboard-lar","Real vaxtda idarəetmə və analitika."],
+    ["Real-time sistemlər və API-lər","WebSocket, REST, GraphQL xidmətləri."],
+    ["İstənilən səviyyədə proqram təminatı","Fərdi tapşırıqlar üçün fərdi həllər."]
+  ],
+  prc_eyebrow:"İş yanaşmam",prc_title:"İcraçı kimi yox — sistem arxitektoru kimi",
+  prc_sub:"Hər layihə eyni nizamlı prosesdən keçir: etibarlı sistemlər, miqyaslana bilən arxitektura, uzunmüddətli məhsullar.",
+  steps:[
+    ["İdeya","Məqsəd və biznes məntiqini müəyyən edirik"],
+    ["Analiz","Tələblər, risklər və bazar araşdırması"],
+    ["Arxitektura","Sistemin skeleti və texnologiya seçimi"],
+    ["İnkişaf","Təmiz kod, testlər, CI/CD"],
+    ["İstifadəyə vermə","Deploy, monitorinq, sabitlik"],
+    ["Miqyaslandırma","Böyümə üçün hazır infrastruktur"]
+  ],
+  stk_eyebrow:"Texnologiya yığını",stk_title:"Full Stack + Arxitektura",
+  stk_sub:"Layihənin ehtiyacına görə düzgün alət seçilir — modaya görə yox.",
+  biz_eyebrow:"Biznes xidmətləri",biz_title:"Texnologiyadan kənar dəstək",
+  biz_sub:"Şirkət həmçinin idarəetmə və maliyyə istiqamətində xidmətlər göstərir.",
+  biz_items:[
+    ["Layihə idarəetməsi","Layihələrin planlaşdırılması, komanda koordinasiyası və nəticəyə çatdırılması."],
+    ["Audit","Texniki və biznes proseslərinin müstəqil auditi. Ödənişli xidmətdir."],
+    ["Vergi xidmətləri","Vergi uçotu və hesabatlıq üzrə müşayiət."],
+    ["Biznes avtomatlaşdırması","Təkrarlanan prosesləri sistemlərə çeviririk."],
+    ["Böyümə strategiyası","Rəqəmsal məhsulun inkişafı və miqyaslandırılması üzrə strategiya."],
+    ["İnvestisiya araşdırması","Layihə və bazar analitikası, məlumatlı qərarlar üçün."]
+  ],
+  fmt_eyebrow:"Əməkdaşlıq",fmt_title:"İş formatları",
+  formats:["Tam layihə hazırlanması","Freelance işlər","Startapların inkişafı","Biznes avtomatlaşdırma","Şirkətlərlə tərəfdaşlıq","Uzunmüddətli məhsul inkişafı"],
+  cta_eyebrow:"Əlaqə",cta_title:"İdeyanız var? Onu işlək məhsula çevirək.",
+  cta_sub:"Layihənizi yazın — arxitektura səviyyəsində yanaşma ilə ən qısa yolu müəyyən edək.",
+  foot_tag:"Rəqəmsal sistemlər və arxitektura",foot_loc:"Bakı, Azərbaycan"
+},
+ru:{
+  nav_services:"Услуги",nav_process:"Процесс",nav_stack:"Технологии",nav_business:"Бизнес",nav_contact:"Контакты",
+  hero_eyebrow:"Системная архитектура · Полный цикл разработки",
+  hero_h1a:"От идеи до работающей",hero_h1b:"цифровой системы.",
+  hero_p:"Я не просто делаю сайты — проектирую и строю полноценные цифровые продукты и комплексные инфраструктуры. От замысла до запуска и масштабирования.",
+  hero_cta1:"Обсудить проект",hero_cta2:"Смотреть услуги",
+  paid_note:"Консультация и аудит — платные услуги.",
+  srv_eyebrow:"Что мы создаём",srv_title:"Цифровые продукты любого уровня",
+  srv_sub:"От корпоративного сайта до сложной финансовой платформы — с реальной бизнес-логикой.",
+  services:[
+    ["Бизнес-сайты и корпоративные платформы","Надёжный цифровой фундамент для компании."],
+    ["Стартапы и MVP-продукты","Быстро превращаем идею в продукт для рынка."],
+    ["SaaS и подписочные системы","С оплатой, тарифами и управлением пользователями."],
+    ["E-commerce и маркетплейсы","Каталог, оплата, логистика — полный цикл."],
+    ["CRM / ERP системы","Индивидуальные системы управления под ваши процессы."],
+    ["Финансовые и инвестиционные платформы","Финтех, трейдинг и аналитические системы."],
+    ["AI-продукты и автоматизация","OpenAI API, ML-модели, умные процессы."],
+    ["Telegram-боты и экосистемы","От бота до целой экосистемы."],
+    ["Web3 / Blockchain / Solana","Смарт-контракты, Ethereum, Solana, BNB Chain."],
+    ["Админ-панели и дашборды","Управление и аналитика в реальном времени."],
+    ["Real-time системы и API","WebSocket, REST, GraphQL сервисы."],
+    ["Разработка программ любого уровня","Индивидуальные решения под индивидуальные задачи."]
+  ],
+  prc_eyebrow:"Наш подход",prc_title:"Не как исполнитель — как системный архитектор",
+  prc_sub:"Каждый проект проходит один выверенный процесс: надёжные системы, масштабируемая архитектура, долгосрочные продукты.",
+  steps:[
+    ["Идея","Определяем цель и бизнес-логику"],
+    ["Анализ","Требования, риски, исследование рынка"],
+    ["Архитектура","Каркас системы и выбор технологий"],
+    ["Разработка","Чистый код, тесты, CI/CD"],
+    ["Запуск","Деплой, мониторинг, стабильность"],
+    ["Масштабирование","Инфраструктура, готовая к росту"]
+  ],
+  stk_eyebrow:"Технологический стек",stk_title:"Full Stack + Архитектура",
+  stk_sub:"Инструмент выбирается под задачу проекта, а не по моде.",
+  biz_eyebrow:"Бизнес-услуги",biz_title:"Поддержка за пределами технологий",
+  biz_sub:"Компания также предоставляет услуги в области управления и финансов.",
+  biz_items:[
+    ["Менеджмент проектов","Планирование, координация команды и доведение до результата."],
+    ["Аудит","Независимый аудит технических и бизнес-процессов. Услуга платная."],
+    ["Налоговое обслуживание","Сопровождение по налоговому учёту и отчётности."],
+    ["Автоматизация бизнеса","Превращаем повторяющиеся процессы в системы."],
+    ["Стратегия роста","Стратегия развития и масштабирования цифрового продукта."],
+    ["Инвестиционные исследования","Аналитика проектов и рынков для взвешенных решений."]
+  ],
+  fmt_eyebrow:"Сотрудничество",fmt_title:"Форматы работы",
+  formats:["Полная разработка проекта","Freelance-задачи","Развитие стартапов","Автоматизация бизнеса","Партнёрство с компаниями","Долгосрочное развитие продукта"],
+  cta_eyebrow:"Контакты",cta_title:"Есть идея? Превратим её в работающий продукт.",
+  cta_sub:"Опишите проект — с подходом уровня архитектора определим кратчайший путь к результату.",
+  foot_tag:"Цифровые системы и архитектура",foot_loc:"Баку, Азербайджан"
+},
+en:{
+  nav_services:"Services",nav_process:"Process",nav_stack:"Stack",nav_business:"Business",nav_contact:"Contact",
+  hero_eyebrow:"System architecture · Full-cycle development",
+  hero_h1a:"From idea to a working",hero_h1b:"digital system.",
+  hero_p:"I don't just build websites — I design and build complete digital products and complex infrastructures. From concept to launch and scaling.",
+  hero_cta1:"Discuss a project",hero_cta2:"View services",
+  paid_note:"Consultation and audit are paid services.",
+  srv_eyebrow:"What we build",srv_title:"Digital products of any level",
+  srv_sub:"From a corporate website to a complex financial platform — with real business logic inside.",
+  services:[
+    ["Business websites & corporate platforms","A reliable digital foundation for your company."],
+    ["Startups & MVP products","Turning an idea into a market-ready product, fast."],
+    ["SaaS & subscription systems","With billing, plans, and user management."],
+    ["E-commerce & marketplaces","Catalog, payments, logistics — the full cycle."],
+    ["CRM / ERP systems","Custom management systems for your processes."],
+    ["Finance & investment platforms","Fintech, trading, and analytics systems."],
+    ["AI products & automation","OpenAI API, ML models, intelligent workflows."],
+    ["Telegram bots & ecosystems","From a single bot to an entire ecosystem."],
+    ["Web3 / Blockchain / Solana","Smart contracts, Ethereum, Solana, BNB Chain."],
+    ["Admin panels & dashboards","Real-time management and analytics."],
+    ["Real-time systems & APIs","WebSocket, REST, and GraphQL services."],
+    ["Software of any level","Custom solutions for custom problems."]
+  ],
+  prc_eyebrow:"How we work",prc_title:"Not as a contractor — as a system architect",
+  prc_sub:"Every project follows one disciplined process: reliable systems, scalable architecture, long-term products.",
+  steps:[
+    ["Idea","Defining the goal and business logic"],
+    ["Analysis","Requirements, risks, market research"],
+    ["Architecture","System skeleton and tech choices"],
+    ["Development","Clean code, tests, CI/CD"],
+    ["Launch","Deploy, monitoring, stability"],
+    ["Scaling","Infrastructure ready for growth"]
+  ],
+  stk_eyebrow:"Technology stack",stk_title:"Full Stack + Architecture",
+  stk_sub:"Tools are chosen for the project's needs — not for fashion.",
+  biz_eyebrow:"Business services",biz_title:"Support beyond technology",
+  biz_sub:"The company also provides management and financial services.",
+  biz_items:[
+    ["Project management","Planning, team coordination, and delivery to result."],
+    ["Audit","Independent audit of technical and business processes. Paid service."],
+    ["Tax services","Support with tax accounting and reporting."],
+    ["Business automation","Turning repetitive processes into systems."],
+    ["Growth strategy","Strategy for developing and scaling a digital product."],
+    ["Investment research","Project and market analytics for informed decisions."]
+  ],
+  fmt_eyebrow:"Collaboration",fmt_title:"Ways of working",
+  formats:["Full project delivery","Freelance work","Startup development","Business automation","Company partnerships","Long-term product development"],
+  cta_eyebrow:"Contact",cta_title:"Have an idea? Let's turn it into a working product.",
+  cta_sub:"Describe your project — with an architect-level approach we'll define the shortest path to results.",
+  foot_tag:"Digital systems & architecture",foot_loc:"Baku, Azerbaijan"
+}
+};
+
+/* stack (language-independent) */
+const STACK = [
+  ["Backend",["Python","FastAPI","Django","Node.js","Express"]],
+  ["Frontend",["React","Next.js","TypeScript","JavaScript","Tailwind CSS","HTML / CSS"]],
+  ["Data",["PostgreSQL","MySQL","MongoDB","Redis"]],
+  ["Infrastructure",["Docker","Kubernetes","Linux","Nginx","CI/CD · GitHub Actions","Microservices"]],
+  ["API & Real-time",["REST API","GraphQL","WebSocket","Telegram Bot API"]],
+  ["AI & Web3",["AI / ML","OpenAI API","Ethereum","Solana","BNB Chain","Smart Contracts","Web3"]]
+];
+
+const ICONS = [
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2 5 5 .7-3.7 3.5.9 5.1L12 15l-4.2 2.3.9-5.1L5 8.7 10 8z"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2L19 19M19 5l-2.8 2.8M7.8 16.2L5 19"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6h15l-1.5 8H8L6 3H3"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a7 7 0 017 7c0 3-2 4-2 7H7c0-3-2-4-2-7a7 7 0 017-7z"/><path d="M9 20h6M10 22h4"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 3L2 10.5l6.5 2.5M22 3l-4 17-8.5-7"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 2v9m0 0l8 4.5M12 11L4 15.5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>'
+];
+const BIZ_ICONS = [
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 6V3M12 21v-3M6 12H3M21 12h-3"/><circle cx="12" cy="12" r="4"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>'
+];
+
+let LANG = "az";
+
+function render(){
+  const t = T[LANG];
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.getAttribute("data-i18n");
+    if(t[k]) el.textContent = t[k];
+  });
+  /* services */
+  document.getElementById("serviceCards").innerHTML = t.services.map((s,i)=>`
+    <div class="card rv in"><div class="ic">${ICONS[i]}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("");
+  /* process */
+  document.getElementById("pipe").innerHTML = t.steps.map((s,i)=>`
+    <div class="step rv in"><div class="n">${String(i+1).padStart(2,"0")}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("");
+  /* stack */
+  document.getElementById("stackGroups").innerHTML = STACK.map(g=>`
+    <div class="sg rv in"><h3>${g[0]}</h3><div class="chips">${g[1].map(c=>`<span class="chip">${c}</span>`).join("")}</div></div>`).join("");
+  /* business */
+  document.getElementById("bizCards").innerHTML = t.biz_items.map((b,i)=>`
+    <div class="card rv in"><div class="ic">${BIZ_ICONS[i]}</div><div><h3>${b[0]}</h3><p>${b[1]}</p></div></div>`).join("");
+  /* formats */
+  document.getElementById("formats").innerHTML = t.formats.map(f=>`<span class="fmt">${f}</span>`).join("");
+  observeReveals();
+}
+
+document.querySelectorAll(".lang button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".lang button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    LANG = b.dataset.lang;
+    render();
+  });
+});
+
+/* theme toggle */
+const themeBtn = document.getElementById("themeBtn");
+function setTheme(t){
+  if(t==="light") document.documentElement.setAttribute("data-theme","light");
+  else document.documentElement.removeAttribute("data-theme");
+  try{ localStorage.setItem("ga-theme",t); }catch(e){}
+}
+themeBtn.addEventListener("click",()=>{
+  const isLight = document.documentElement.getAttribute("data-theme")==="light";
+  setTheme(isLight ? "dark" : "light");
+});
+try{
+  const saved = localStorage.getItem("ga-theme");
+  if(saved) setTheme(saved);
+}catch(e){}
+
+/* mobile menu */
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("navLinks");
+burger.addEventListener("click",()=>navLinks.classList.toggle("open"));
+navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navLinks.classList.remove("open")));
+
+/* scroll reveal */
+let io;
+function observeReveals(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll(".rv:not(.in)").forEach(el=>io.observe(el));
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
