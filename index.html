@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Age — Digital Systems & Architecture</title>
+<meta name="description" content="Golden Age — a digital ecosystem uniting fintech, investments, AI, blockchain, education and analytics. Full-cycle development: from idea and architecture to launch and scaling. Baku, Azerbaijan.">
+<meta name="keywords" content="fintech, blockchain, Solana, Web3, AI, SaaS, system architecture, full-stack development, Baku, Azerbaijan">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Golden Age — Digital Systems & Architecture">
+<meta property="og:description" content="Fintech · Investments · AI · Blockchain · Education · Analytics. Full-cycle digital products: from idea to launch and scaling.">
+<meta property="og:site_name" content="Golden Age">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golden Age — Digital Systems & Architecture">
+<meta name="twitter:description" content="Fintech · Investments · AI · Blockchain · Education · Analytics. Full-cycle digital products.">
+<meta name="theme-color" content="#080C16">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080C16'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23D9AC4E' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23D9AC4E'/%3E%3Cpath d='M16 5v6M16 21v6M5 16h6M21 16h6' stroke='%23D9AC4E' stroke-width='1.3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -146,6 +157,30 @@ html[data-theme="light"] .theme-btn .moon{display:none}
 @keyframes corePulse{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.08;transform:scale(1.25)}}
 .core-glow{transform-origin:center;transform-box:fill-box;animation:corePulse 4s ease-in-out infinite}
 
+/* ecosystem */
+.eco{background:linear-gradient(180deg,transparent,rgba(217,172,78,.035),transparent)}
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.eco-card{
+  background:linear-gradient(160deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:26px 24px;position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s;
+}
+.eco-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold-hi),var(--gold-lo));
+  opacity:.55;
+}
+.eco-card:hover{border-color:var(--line);transform:translateY(-3px)}
+.eco-card .tag{
+  font:600 .62rem 'Unbounded';letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);display:block;margin-bottom:12px;
+}
+.eco-card h3{font-size:.95rem;font-weight:500;margin-bottom:8px}
+.eco-card p{font-size:.85rem;color:var(--muted)}
+@media (max-width:960px){.eco-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.eco-grid{grid-template-columns:1fr}}
+
 /* ---------- sections ---------- */
 section{padding:78px 0}
 .sec-head{margin-bottom:46px;max-width:640px}
@@ -282,6 +317,7 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
       GOLDEN&nbsp;AGE
     </a>
     <nav class="nav-links" id="navLinks">
+      <a href="#ecosystem" data-i18n="nav_eco"></a>
       <a href="#services" data-i18n="nav_services"></a>
       <a href="#process" data-i18n="nav_process"></a>
       <a href="#stack" data-i18n="nav_stack"></a>
@@ -371,6 +407,18 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
   </div>
 </section>
 
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="eco">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" data-i18n="eco_eyebrow"></span>
+      <h2 data-i18n="eco_title"></h2>
+      <p data-i18n="eco_sub"></p>
+    </div>
+    <div class="eco-grid" id="ecoCards"></div>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section id="services">
   <div class="wrap">
@@ -436,17 +484,17 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
         <div class="paid-note"><span class="dot"></span><span data-i18n="paid_note"></span></div>
       </div>
       <div class="contact-links">
-        <a class="clink" href="https://t.me/YOUR_TELEGRAM" target="_blank" rel="noopener">
+        <a class="clink" href="https://t.me/AliKerim" target="_blank" rel="noopener">
           <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 3L2 10.5l6.5 2.5M22 3l-4 17-8.5-7M22 3L9.5 13.5V20l3-4"/></svg></span>
-          <span>Telegram<small>@YOUR_TELEGRAM</small></span>
+          <span>Telegram<small>@AliKerim</small></span>
         </a>
-        <a class="clink" href="mailto:hello@goldenage.dev">
+        <a class="clink" href="mailto:kerimovali.m@gmail.com">
           <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-          <span>Email<small>hello@goldenage.dev</small></span>
+          <span>Email<small>kerimovali.m@gmail.com</small></span>
         </a>
-        <a class="clink" href="https://wa.me/994000000000" target="_blank" rel="noopener">
+        <a class="clink" href="https://wa.me/994515151313" target="_blank" rel="noopener">
           <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z"/></svg></span>
-          <span>WhatsApp<small>+994 00 000 00 00</small></span>
+          <span>WhatsApp<small>+994 51 515 13 13</small></span>
         </a>
       </div>
     </div>
@@ -466,7 +514,18 @@ footer{border-top:1px solid var(--line-soft);padding:34px 0;color:var(--muted);f
 /* ================= I18N ================= */
 const T = {
 az:{
-  nav_services:"Xidmətlər",nav_process:"Proses",nav_stack:"Texnologiyalar",nav_business:"Biznes",nav_contact:"Əlaqə",
+  nav_eco:"Ekosistem",nav_services:"Xidmətlər",nav_process:"Proses",nav_stack:"Texnologiyalar",nav_business:"Biznes",nav_contact:"Əlaqə",
+  eco_eyebrow:"Golden Age ekosistemi",
+  eco_title:"Bir platformada birləşən altı istiqamət",
+  eco_sub:"Golden Age — maliyyə, təhsil, AI, blockchain, analitika və rəqəmsal biznes infrastrukturunu vahid ekosistemdə birləşdirən müasir platformadır.",
+  eco_items:[
+    ["Finance","Rəqəmsal maliyyə","Fintech platformaları, ödəniş sistemləri və wealth management həlləri."],
+    ["Investments","İnvestisiya sistemləri","İnvestisiya platformaları, trading sistemləri və bazar araşdırmaları."],
+    ["AI","Süni intellekt","AI inteqrasiyaları, avtomatlaşdırma və ağıllı analitika sistemləri."],
+    ["Blockchain","Blockchain və Web3","Solana, smart contract-lar və kripto infrastrukturu."],
+    ["Education","Təhsil","Maliyyə və texnologiya sahəsində bilik və təlim platformaları."],
+    ["Analytics","Analitika","Dashboard-lar, data infrastrukturu və qərar dəstəyi sistemləri."]
+  ],
   hero_eyebrow:"Sistem arxitekturası · Tam dövriyyəli inkişaf",
   hero_h1a:"İdeyadan işlək",hero_h1b:"rəqəmsal sistemə qədər.",
   hero_p:"Mən yalnız saytlar hazırlamıram — tam funksional rəqəmsal məhsullar və kompleks infrastrukturlar layihələndirir və qururam. Yaradılma mərhələsindən istifadəyə verilməsinə və miqyaslandırılmasına qədər.",
@@ -517,7 +576,18 @@ az:{
   foot_tag:"Rəqəmsal sistemlər və arxitektura",foot_loc:"Bakı, Azərbaycan"
 },
 ru:{
-  nav_services:"Услуги",nav_process:"Процесс",nav_stack:"Технологии",nav_business:"Бизнес",nav_contact:"Контакты",
+  nav_eco:"Экосистема",nav_services:"Услуги",nav_process:"Процесс",nav_stack:"Технологии",nav_business:"Бизнес",nav_contact:"Контакты",
+  eco_eyebrow:"Экосистема Golden Age",
+  eco_title:"Шесть направлений в одной платформе",
+  eco_sub:"Golden Age — современная экосистема, объединяющая финансы, образование, AI, блокчейн, аналитику и цифровую бизнес-инфраструктуру в единую платформу.",
+  eco_items:[
+    ["Finance","Цифровые финансы","Финтех-платформы, платёжные системы и решения для wealth management."],
+    ["Investments","Инвестиционные системы","Инвестиционные платформы, трейдинговые системы и исследования рынков."],
+    ["AI","Искусственный интеллект","AI-интеграции, автоматизация и умные аналитические системы."],
+    ["Blockchain","Блокчейн и Web3","Solana, смарт-контракты и криптоинфраструктура."],
+    ["Education","Образование","Платформы знаний и обучения в сфере финансов и технологий."],
+    ["Analytics","Аналитика","Дашборды, дата-инфраструктура и системы поддержки решений."]
+  ],
   hero_eyebrow:"Системная архитектура · Полный цикл разработки",
   hero_h1a:"От идеи до работающей",hero_h1b:"цифровой системы.",
   hero_p:"Я не просто делаю сайты — проектирую и строю полноценные цифровые продукты и комплексные инфраструктуры. От замысла до запуска и масштабирования.",
@@ -568,7 +638,18 @@ ru:{
   foot_tag:"Цифровые системы и архитектура",foot_loc:"Баку, Азербайджан"
 },
 en:{
-  nav_services:"Services",nav_process:"Process",nav_stack:"Stack",nav_business:"Business",nav_contact:"Contact",
+  nav_eco:"Ecosystem",nav_services:"Services",nav_process:"Process",nav_stack:"Stack",nav_business:"Business",nav_contact:"Contact",
+  eco_eyebrow:"The Golden Age ecosystem",
+  eco_title:"Six directions, one unified platform",
+  eco_sub:"Golden Age is a modern ecosystem combining finance, education, AI, blockchain, analytics, and digital business infrastructure into one unified platform.",
+  eco_items:[
+    ["Finance","Digital finance","Fintech platforms, payment systems, and wealth management solutions."],
+    ["Investments","Investment systems","Investment platforms, trading systems, and market research."],
+    ["AI","Artificial intelligence","AI integrations, automation, and intelligent analytics systems."],
+    ["Blockchain","Blockchain & Web3","Solana, smart contracts, and crypto infrastructure."],
+    ["Education","Education","Knowledge and learning platforms for finance and technology."],
+    ["Analytics","Analytics","Dashboards, data infrastructure, and decision-support systems."]
+  ],
   hero_eyebrow:"System architecture · Full-cycle development",
   hero_h1a:"From idea to a working",hero_h1b:"digital system.",
   hero_p:"I don't just build websites — I design and build complete digital products and complex infrastructures. From concept to launch and scaling.",
@@ -622,7 +703,7 @@ en:{
 
 /* stack (language-independent) */
 const STACK = [
-  ["Backend",["Python","FastAPI","Django","Node.js","Express"]],
+  ["Backend",["Python","FastAPI","Django","Node.js","Express","Rust","Go"]],
   ["Frontend",["React","Next.js","TypeScript","JavaScript","Tailwind CSS","HTML / CSS"]],
   ["Data",["PostgreSQL","MySQL","MongoDB","Redis"]],
   ["Infrastructure",["Docker","Kubernetes","Linux","Nginx","CI/CD · GitHub Actions","Microservices"]],
@@ -662,6 +743,9 @@ function render(){
     const k = el.getAttribute("data-i18n");
     if(t[k]) el.textContent = t[k];
   });
+  /* ecosystem */
+  document.getElementById("ecoCards").innerHTML = t.eco_items.map(e=>`
+    <div class="eco-card rv in"><span class="tag">${e[0]}</span><h3>${e[1]}</h3><p>${e[2]}</p></div>`).join("");
   /* services */
   document.getElementById("serviceCards").innerHTML = t.services.map((s,i)=>`
     <div class="card rv in"><div class="ic">${ICONS[i]}</div><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("");
