@@ -1203,7 +1203,15 @@ try{
 }catch(e){}
 
 /* tech ribbon (duplicated for seamless loop) */
-const RIBBON = ["Python","TypeScript","React","Next.js","Node.js","Rust","Go","FastAPI","PostgreSQL","Redis","Docker","Kubernetes","Ethereum","Solana","TON","Polygon","Smart Contracts","DeFi","AI / ML","GraphQL","WebSocket"];
+/* Tech Ribbon — Senior уровень */
+const RIBBON = [
+  "Microservices","Kubernetes","Terraform","Kafka","DDD","CQRS","Event Sourcing",
+  "Hexagonal Architecture","Clean Architecture","System Design","High-Load Systems",
+  "FastAPI","Rust","Go","Python","Node.js","NestJS","Next.js","TypeScript",
+  "GraphQL","gRPC","Redis","PostgreSQL","Docker","GitOps","CI/CD",
+  "Prometheus","Grafana","OpenTelemetry","Solana","DeFi","LLM","AI Agents",
+  "Distributed Systems","Observability"
+];
 document.getElementById("ribbonTrack").innerHTML =
   [...RIBBON,...RIBBON].map(x=>`<span>${x}</span>`).join("");
 
